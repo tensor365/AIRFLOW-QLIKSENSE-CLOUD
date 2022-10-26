@@ -8,7 +8,7 @@
   Airflow: Qlik Sense Cloud Provider (BETA)
 </h1>
   <h3 align="center">
-    Qlik Sense Cloud Provider to reload application, automation from Airflow. Maintained by Clément PARSY (DECIDEOM).
+    Qlik Sense Cloud Provider to reload application, automation from Airflow.
 </h3>
 
 <br/>
