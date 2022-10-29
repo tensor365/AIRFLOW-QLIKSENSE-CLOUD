@@ -116,7 +116,7 @@ Follow these steps to get API Keys:
 
 
 
-### 4. Creating a DAG with Qlik Sense Cloud Operator
+### 4. Example: Creating a DAG with Qlik Sense Cloud Operator to reload App 
 
 You can now use the operators in your dags to trigger action in Qlik Sense Cloud from Airflow
 
@@ -170,7 +170,57 @@ with DAG('test-airflow',default_args=default_args,description='A simple tutorial
 
 <br/>
 
-## 5. (Appendix) Activate API Key on Qlik Sense Cloud Tenant
+### 5. Example: Creating a DAG with Qlik Sense Cloud Operator to reload Qlik Automation 
+
+Here's an example of DAG using operator to reload automation 
+
+
+```python
+
+from airflow import DAG
+from airflow.providers.qlik_sense_cloud.operators.qlik_sense_cloud_automation import QlikSenseCloudAutomationOperator
+from airflow.utils.dates import days_ago
+
+from datetime import timedelta
+from textwrap import dedent
+
+# [START default_args]
+# These args will get passed on to each operator
+# You can override them on a per-task basis during operator initialization
+default_args = {
+    'owner': 'airflow',
+    'depends_on_past': False,
+    'email': ['airflow@example.com'],
+    'email_on_failure': False,
+    'email_on_retry': False,
+    'retries': 1,
+    'retry_delay': timedelta(minutes=5),
+    # 'queue': 'bash_queue',
+    # 'pool': 'backfill',
+    # 'priority_weight': 10,
+    # 'end_date': datetime(2016, 1, 1),
+    # 'wait_for_downstream': False,
+    # 'dag': dag,
+    # 'sla': timedelta(hours=2),
+    # 'execution_timeout': timedelta(seconds=300),
+    # 'on_failure_callback': some_function,
+    # 'on_success_callback': some_other_function,
+    # 'on_retry_callback': another_function,
+    # 'sla_miss_callback': yet_another_function,
+    # 'trigger_rule': 'all_success'
+}
+# [END default_args]
+
+
+# [START instantiate_dag]
+with DAG('test-automation',default_args=default_args,description='A simple tutorial DAG to try',schedule_interval=timedelta(days=1),start_date=days_ago(2),tags=['example'],) as dag:
+	t1 = QlikSenseCloudAutomationOperator(task_id='reload_automation',automationId='bab86470-578a-11ed-bee3-db20e15c9fd8',conn_id='qliksensecloud')
+
+	t1
+
+```
+
+### 6. (Appendix) Activate API Key on Qlik Sense Cloud Tenant
 
 To get more informations about API Key in Qlik Sense Cloud, you can follow these topic:
 
