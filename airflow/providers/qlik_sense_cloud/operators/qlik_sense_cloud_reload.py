@@ -7,15 +7,11 @@ from airflow.providers.qlik_sense_cloud.hooks.qlik_sense_hook import QlikSenseHo
 
 class QlikSenseCloudReloadOperator(BaseOperator):
     """
-    Calls an endpoint on an HTTP system to execute an action.
+    Trigger a reload of the app id passed in params.
 
-    :param sample_conn_id: connection to run the operator with
-    :type conn_id: str
-    :type endpoint: str
-    :param data: The data to pass
-    :type data: a dictionary of key/value string pairs
-    :param headers: The HTTP headers to be added to the request
-    :type headers: a dictionary of string key/value pairs
+    :conn_id: connection to run the operator with
+    :appId: str
+    
     """
 
     # Specify the arguments that are allowed to parse with jinja templating
@@ -26,7 +22,7 @@ class QlikSenseCloudReloadOperator(BaseOperator):
     ui_color = '#00873d'
 
     @apply_defaults
-    def __init__(self, *, appId: str = None, conn_id: str = 'conn_sample', **kwargs: Any,) -> None:
+    def __init__(self, *, appId: str = None, conn_id: str = 'qlik_conn_sample', waitUntilFinished: bool = True, **kwargs: Any,) -> None:
         super().__init__(**kwargs)
         self.conn_id = conn_id
         self.appId = appId
@@ -43,5 +39,11 @@ class QlikSenseCloudReloadOperator(BaseOperator):
         self.log.info("Call HTTP method to reload app {}".format(self.appId))
 
         response = hook.run(self.endpoint, self.data)
+
+        if response.status_code == 400: 
+            errorDetail = response.json()['errors']['detail']
+            raise RuntimeError('Invalid request: {}. Check if appId provided is valid.'.format(errorDetail))
+        if response.status_code == 401:
+            raise RuntimeError('JWT Token invalid or missing: Check if your API token is still available or valid. Please update connection with the correct one.')
 
         return response.text
