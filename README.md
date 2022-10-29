@@ -93,8 +93,7 @@ Follow these steps to get API Keys:
 
 **Step 1**: Login to your Qlik Sense Cloud Tenant and go into _About_ Section by clicking on your profile icon.
 
-![about_tenant](https://user-images.githubusercontent.com/13502563/198839947-327f312d-3458-4d44-8683-ea91ea11c413.png)
-
+![about_tenant](https://user-images.githubusercontent.com/13502563/198840307-32b74dea-970e-4b94-a724-13077fa84e49.png)
 
 **Step 2**: Get the value of your tenant hostname
 
