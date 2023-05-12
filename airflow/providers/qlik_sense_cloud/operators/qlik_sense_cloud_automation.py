@@ -1,7 +1,6 @@
 from typing import Any, Callable, Dict, Optional
 
 import time 
-import uuid
 
 from airflow.exceptions import AirflowException
 from airflow.models import BaseOperator
