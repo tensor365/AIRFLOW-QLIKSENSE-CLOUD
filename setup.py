@@ -19,7 +19,7 @@ setup(
     },
     license='Apache License 2.0',
     packages=['airflow.providers.qlik_sense_cloud', 'airflow.providers.qlik_sense_cloud.hooks', 'airflow.providers.qlik_sense_cloud.operators'],
-    install_requires=['apache-airflow>=2.0'],
+    install_requires=['apache-airflow>=2.0', 'qlik-sdk'],
     setup_requires=['setuptools', 'wheel'],
     author='Clement Parsy',
     author_email='cparsy@decideom.fr',
