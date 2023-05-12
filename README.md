@@ -22,7 +22,6 @@ The package has been tested with Python 3.7, Python 3.8.
 |  Package       |  Version  |
 |----------------|-----------|
 | apache-airflow | >2.0      |
-|----------------|-----------|
 | qlik-sdk       | >= 0.14.0 |
 
 You also need a Qlik Sense Cloud tenant with API key activated. To get more informations about how to activate API key on Qlik Sense Cloud Tenant, see this section.
