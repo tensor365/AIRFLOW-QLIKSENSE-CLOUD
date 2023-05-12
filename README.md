@@ -5,7 +5,7 @@
 </p>
 
 <h1 align="center">
-  Airflow: Qlik Sense Cloud Provider (BETA)
+  Airflow: Qlik Sense Cloud Provider
 </h1>
   <h3 align="center">
     Qlik Sense Cloud Provider to reload application, automation from Airflow.
