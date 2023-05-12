@@ -1,4 +1,5 @@
 from typing import Any, Callable, Dict, Optional
+import time
 
 from airflow.exceptions import AirflowException
 from airflow.models import BaseOperator
@@ -22,12 +23,11 @@ class QlikSenseCloudReloadOperator(BaseOperator):
     ui_color = '#00873d'
 
     @apply_defaults
-    def __init__(self, *, appId: str = None, conn_id: str = 'qlik_conn_sample', waitUntilFinished: bool = True, **kwargs: Any,) -> None:
+    def __init__(self, *, appId: str = None, conn_id: str = 'qlik_conn_sample', synchrone: bool = True, **kwargs: Any,) -> None:
         super().__init__(**kwargs)
         self.conn_id = conn_id
         self.appId = appId
-        self.endpoint = 'api/v1/reloads'
-        self.method = 'POST'
+        self.synchrone=synchrone
 
     def execute(self, context: Dict[str, Any]) -> Any:
 
@@ -36,14 +36,22 @@ class QlikSenseCloudReloadOperator(BaseOperator):
         #Body of request to reload application
         self.data = {"appId":self.appId,"partial": False}
 
-        self.log.info("Call HTTP method to reload app {}".format(self.appId))
+        self.log.info("Trigger task to reload app {}".format(self.appId))
 
-        response = hook.run(self.endpoint, self.data)
+        response = hook.reload_app(self.appId, False)
 
-        if response.status_code == 400: 
-            errorDetail = response.json()['errors']['detail']
-            raise RuntimeError('Invalid request: {}. Check if appId provided is valid.'.format(errorDetail))
-        if response.status_code == 401:
-            raise RuntimeError('JWT Token invalid or missing: Check if your API token is still available or valid. Please update connection with the correct one.')
-
-        return response.text
+        reloadId = response.id
+        if self.synchrone:
+            self.log.info("Checking status of the application reload: {}".format(self.appId))
+            notFinished = True
+            while notFinished:
+                ans = hook.get_status_reload_app(reloadId)
+                if ans.status == 'SUCCEEDED':
+                    notFinished = False
+                elif ans.status == 'FAILED':
+                    raise RuntimeError('Reload of App has failed. \n Log: {}'.format(ans.log))
+                elif ans.status == 'EXCEEDED_LIMIT':
+                    raise RuntimeError('App reloading has time out.')
+                elif ans.status == 'CANCELED':
+                    raise RuntimeError('Reload of the app has been cancel')
+                time.sleep(15)

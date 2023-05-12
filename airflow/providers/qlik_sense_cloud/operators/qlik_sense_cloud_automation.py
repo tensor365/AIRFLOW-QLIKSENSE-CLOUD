@@ -25,50 +25,38 @@ class QlikSenseCloudAutomationOperator(BaseOperator):
     ui_color = '#00873d'
 
     @apply_defaults
-    def __init__(self, *, automationId: str = None, conn_id: str = 'qlik_conn_sample', inputs:Dict[str, Any] = {}, waitUntilFinished: bool = True ,**kwargs: Any,) -> None:
+    def __init__(self, *, automationId: str = None, conn_id: str = 'qlik_conn_sample', inputs:Dict[str, Any] = {}, synchrone: bool = True ,**kwargs: Any,) -> None:
         super().__init__(**kwargs)
         self.conn_id = conn_id
         self.automationId = automationId
         self.inputs = inputs
-        self.endpoint = 'api/v1/automations/{}/runs'.format(self.automationId)
-        self.method = 'POST'
-        self.waitUntilFinshed = waitUntilFinished
+        self.synchrone = synchrone
 
     def execute(self, context: Dict[str, Any]) -> Any:
 
         hook = QlikSenseHook(self.method, conn_id=self.conn_id)
         
-        self.guid = str(uuid.uuid4())
         #Body of request to reload application
-        self.data = {"guid": self.guid ,"inputs":self.inputs,"context":"editor"}
+        
+        self.log.info("Trigger the reload automation {}".format(self.automationId))
 
-        self.log.info("Call HTTP method to reload automation {} with guiid {}".format(self.automationId, self.guid))
+        response = hook.reload_automation(self.automationId)
 
-        response = hook.run(self.endpoint, self.data)
-
-        if response.status_code == 404: 
-            errorDetail = response.json()['errors']['detail']
-            raise RuntimeError('Invalid request: {}. Check if automationId provided is valid.'.format(errorDetail))
-        if response.status_code == 401:
-            raise RuntimeError('JWT Token invalid or missing: Check if your API token is still available or valid. Please update connection with the correct one.')
-
+        runId = response.id
         #If activated, wait the end of the automation to give an answer
-        if self.waitUntilFinshed:
-            endpointTracker = '/api/v1/automations/{}/runs/{}'.format(self.automationId, self.guid) 
-            hookListenner = QlikSenseHook('GET', conn_id=self.conn_id)
-
-            timeout = 60*60*5
-            timeoutCounter = 0           
-            statusRunning = ['starting', 'running']
-            flagAutomationNotFinished = True
-            while flagAutomationNotFinished:
-                response = hookListenner.run(endpointTracker)
-                if response.json()['status'] not in statusRunning:
-                    flagAutomationNotFinished = False
-                timeoutCounter+=10           
-                time.sleep(10)
-                if timeoutCounter > timeout: 
-                    raise RuntimeError('Timeout: the reloading of automation has timeout')
-            return response.text
-    
-        return response.text
+        if self.synchrone:
+            self.log.info("Checking status of the automation reload {}".format(self.automationId))
+            notFinished = True
+            while notFinished:
+                ans = hook.get_status_reload_automation(self.automationId, runId)
+                if ans.status == 'finished':
+                    notFinished=False
+                    self.log.info("Automation {} reload ended successfully".format(self.automationId))
+                elif ans.status == 'finished with warnings':
+                    notFinished=False
+                    self.log.info("Automation {} reload ended successfully with warnings".format(self.automationId))
+                elif ans.status == 'failed':             
+                    raise RuntimeError('Automation reload {} failed.'.format(self.automationId))
+                elif ans.status == 'stopped':
+                    raise RuntimeError('Automation reload {} has been stopped.'.format(self.automationId))
+                time.sleep(15)
