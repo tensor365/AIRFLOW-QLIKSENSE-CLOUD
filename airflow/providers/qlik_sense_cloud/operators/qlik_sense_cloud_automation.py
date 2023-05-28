@@ -1,5 +1,4 @@
 from typing import Any, Callable, Dict, Optional
-
 import time 
 
 from airflow.exceptions import AirflowException
