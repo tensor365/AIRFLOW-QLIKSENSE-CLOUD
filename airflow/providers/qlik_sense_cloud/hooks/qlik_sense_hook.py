@@ -31,10 +31,9 @@ class QlikSenseHook(BaseHook):
     __qlik_connexion = None
 
 
-    def __init__(self,method: str = 'POST',conn_id: str = default_conn_name,auth_type: str = 'api_key',) -> None:
+    def __init__(self,conn_id: str = default_conn_name,auth_type: str = 'api_key',) -> None:
         super().__init__()
         self.conn_id = conn_id
-        self.method = method.upper()
         self.base_url: str = ""
         self.auth_type: str = auth_type
 
