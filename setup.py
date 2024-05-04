@@ -1,4 +1,4 @@
-"""Setup.py for the Qlik Sense Cloud Airflow provider package. Built from datadog provider package for now."""
+"""Setup.py for the Qlik Sense Cloud Airflow provider package."""
 
 from setuptools import find_packages, setup
 
