@@ -15,6 +15,10 @@
 
 This repository provides basic qlik sense cloud hook and operators to trigger reloads of applications, automations, or tasks available in a Qlik Sense Cloud tenant.
 
+## Road Map 
+
+🚧 Adding Report Operator (In Development)
+
 ## Requirements
 
 The package has been tested with Python 3.7, Python 3.8.
