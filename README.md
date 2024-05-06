@@ -32,6 +32,14 @@ You also need a Qlik Sense Cloud tenant with API key activated. To get more info
 
 To install it, download and unzip source and launch the following pip install command: 
 
+By using Pypi
+
+```bash
+pip install airflow-provider-qlik-sense-cloud
+```
+
+By Local Install
+
 ```bash
 pip install .
 ```
