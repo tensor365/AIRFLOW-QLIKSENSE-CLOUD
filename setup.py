@@ -1,8 +1,8 @@
 """Setup.py for the Qlik Sense Cloud Airflow provider package."""
 
-from setuptools import find_packages, setup
+from setuptools import  setup
 
-with open("README.md", "r") as fh:
+with open("README.md", "r", encoding="utf8") as fh:
     long_description = fh.read()
 
 """Perform the package airflow-provider-qlik-sense-cloud setup."""
