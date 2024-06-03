@@ -192,6 +192,7 @@ Here's an example of DAG using operator to reload automation
 
 from airflow import DAG
 from airflow.providers.qlik_sense_cloud.operators.qlik_sense_cloud_automation import QlikSenseCloudAutomationOperator
+from airflow.providers.qlik_sense_cloud.operators.qlik_sense_cloud_report import QlikSenseCloudReportOperator
 from airflow.utils.dates import days_ago
 
 from datetime import timedelta
@@ -226,10 +227,12 @@ default_args = {
 
 
 # [START instantiate_dag]
-with DAG('test-automation',default_args=default_args,description='A simple tutorial DAG to try',schedule_interval=timedelta(days=1),start_date=days_ago(2),tags=['example'],) as dag:
+with DAG('test-automation-report',default_args=default_args,description='A simple tutorial DAG to try',schedule_interval=timedelta(days=1),start_date=days_ago(2),tags=['example'],) as dag:
 	t1 = QlikSenseCloudAutomationOperator(task_id='reload_automation',automationId='bab86470-578a-11ed-bee3-db20e15c9fd8',conn_id='qliksensecloud')
 
-	t1
+  	t2 = QlikSenseCloudReportOperator(task_id='reload_report',reportId='65f810a9e0f4697cb54b6e87',conn_id='qliksensecloud')
+
+	t1 >> t2
 
 ```
 
