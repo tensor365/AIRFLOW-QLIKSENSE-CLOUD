@@ -98,6 +98,16 @@ class QlikSenseHook(BaseHook):
                                 })
 
         return ans
+    
+    def send_report(self, reportId: str):
+        """
+        
+        Trigger a send of Qlik Sense Report Service from Airflow
+  
+        """
+
+        ans = self.__qlik_connexion.rest(path='/sharing-tasks/actions/execute', method='POST', data={"sharingTaskID": reportId})
+        return ans
 
     def __generate_uuid():
         return str(uuid.uuid4())

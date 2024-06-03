@@ -8,7 +8,7 @@ with open("README.md", "r") as fh:
 """Perform the package airflow-provider-qlik-sense-cloud setup."""
 setup(
     name='airflow-provider-qlik-sense-cloud',
-    version="0.0.3",
+    version="0.0.4",
     description='Airflow package provider to reload apps/task/automation from Qlik Sense Cloud.',
     long_description=long_description,
     long_description_content_type='text/markdown',
