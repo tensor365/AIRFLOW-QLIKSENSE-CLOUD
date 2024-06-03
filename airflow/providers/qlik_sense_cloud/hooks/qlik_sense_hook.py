@@ -106,6 +106,9 @@ class QlikSenseHook(BaseHook):
   
         """
 
+        if self.__qlik_connexion is None:
+            self.get_conn()
+
         ans = self.__qlik_connexion.rest(path='/sharing-tasks/actions/execute', method='POST', data={"sharingTaskID": reportId})
         return ans
 
