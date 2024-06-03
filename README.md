@@ -1,5 +1,8 @@
 <p align="center" style="vertical-align:center;">
-  ![qlik_logo](https://github.com/tensor365/AIRFLOW-QLIKSENSE-CLOUD/assets/13502563/3e31b2e1-2a3a-4009-825f-8802321107a2)
+
+<img src="https://github.com/tensor365/AIRFLOW-QLIKSENSE-CLOUD/assets/13502563/780adaa3-9e0b-40e9-862f-7b0a3bb787a9" alt="qlik">
+
+  
 </p>
 
 <h1 align="center">
