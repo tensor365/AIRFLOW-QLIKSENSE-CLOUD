@@ -1,7 +1,5 @@
 <p align="center" style="vertical-align:center;">
-  <a href="https://www.qlik.com/fr-fr/products/qlik-cloud">
-    ![qlik_logo](https://github.com/tensor365/AIRFLOW-QLIKSENSE-CLOUD/assets/13502563/3e31b2e1-2a3a-4009-825f-8802321107a2)
-  </a>
+  ![qlik_logo](https://github.com/tensor365/AIRFLOW-QLIKSENSE-CLOUD/assets/13502563/3e31b2e1-2a3a-4009-825f-8802321107a2)
 </p>
 
 <h1 align="center">
