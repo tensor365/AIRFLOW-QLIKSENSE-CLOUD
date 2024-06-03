@@ -5,18 +5,11 @@ package-name: qlik_sense_cloud_provider
 display-name: Qlik Sense Cloud Provider
 # A description to be displayed on the main Provider page.
 description: Provider to schedule reloading of tasks, apps and automation from Qlik Cloud Portal.
-# URL for where user should find the documentation for the Provider. This could be a link to the README,
-# an external docs site, etc.
-#docs_url: https://github.com/astronomer/airflow-provider-sample/blob/main/README.md
-
-# The next sections should be organized by module type (e.g. operators, hooks, functions, decorators, etc.).
-#
-# Within each section, the ``module`` value should be the path.to.the.module.specifically.
-# For example, if the import path for a function is `from sample_provider.hooks.sample_hook import SampleHook` then the
-# value should be "sample_provider.hooks.sample_hook.SampleHook".
 
 hooks:
   - module: airflow.providers.qlik_sense_cloud.hooks.qlik_sense_hook.QlikSenseHook
 
 operators:
   - module: airflow.providers.qlik_sense_cloud.operators.qlik_sense_cloud_reload.QlikSenseCloudReloadOperator
+  - module: airflow.providers.qlik_sense_cloud.operators.qlik_sense_cloud_automation.QlikSenseCloudAutomationOperator
+  - module: airflow.providers.qlik_sense_cloud.operators.qlik_sense_cloud_automation.QlikSenseCloudReportOperator
