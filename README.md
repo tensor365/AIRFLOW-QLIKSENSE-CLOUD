@@ -183,7 +183,7 @@ with DAG('test-airflow',default_args=default_args,description='A simple tutorial
 
 <br/>
 
-### 5. Example: Creating a DAG with Qlik Sense Cloud Operator to reload Qlik Automation 
+### 5. Example: Creating a DAG with Qlik Sense Cloud Operator to reload Qlik Automation and to send a Qlik Report
 
 Here's an example of DAG using operator to reload automation 
 
