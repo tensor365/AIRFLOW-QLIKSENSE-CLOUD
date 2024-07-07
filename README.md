@@ -18,7 +18,8 @@ This repository provides basic qlik sense cloud hook and operators to trigger re
 
 ## Road Map 
 
-☑ Adding Report Operator (Added in beta test)
+☑ Adding Report Operator (Added in production)
+
 
 ## Requirements
 
