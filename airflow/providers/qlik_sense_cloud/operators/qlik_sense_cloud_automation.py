@@ -32,7 +32,7 @@ class QlikSenseCloudAutomationOperator(BaseOperator):
 
     def execute(self, context: Dict[str, Any]) -> Any:
 
-        hook = QlikSenseHook(self.method, conn_id=self.conn_id)
+        hook = QlikSenseHook(conn_id=self.conn_id)
         
         #Body of request to reload application
         
