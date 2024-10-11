@@ -37,6 +37,16 @@ class QlikSenseHook(BaseHook):
         self.base_url: str = ""
         self.auth_type: str = auth_type
 
+    def test_connection(self) -> tuple[bool, str]:
+        """Test the access to tenant Qlik Sense Cloud."""
+        try:
+            conn = self.get_conn()
+            user = conn.users.get_me()
+            return True, f"Connection successfully tested with user: {user.name}"
+        except Exception as e:
+            return False, str(e)
+
+
     def get_status_reload_app(self, reloadId: str):
         """
         
