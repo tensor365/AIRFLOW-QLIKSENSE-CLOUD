@@ -132,8 +132,8 @@ class QlikSenseHook(BaseHook):
     
         """
 
-        if self.conn_id:
-            conn = self.get_connection(self.conn_id)
+        if self.qlik_sense_cloud_config_id:
+            conn = self.get_connection(self.qlik_sense_cloud_config_id)
 
             host = conn.host if conn.host else ""
             if not host.startswith('https://'):
