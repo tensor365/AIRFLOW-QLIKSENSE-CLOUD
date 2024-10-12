@@ -15,27 +15,37 @@ class QlikSenseHook(BaseHook):
  
     :param method: the API method to be called
     :type method: str
-    :param sample_conn_id: connection that has the base API url i.e https://www.google.com/
+    :param qlik_sense_cloud_config_id: connection that has the base API url i.e https://www.google.com/
         and optional authentication credentials. Default headers can also be specified in
         the Extra field in json format.
-    :type sample_conn_id: str
+    :type qlik_sense_cloud_config_id: str
     :param auth_type: The auth type for the service
     :type auth_type: AuthBase of python requests lib
     
     """
 
-    conn_name_attr = 'sample_conn_id'
-    default_conn_name = 'qlik_sense_default'
+    conn_name_attr = 'qlik_sense_cloud_config_id'
+    default_conn_name = 'qlik_sense_cloud_default'
     conn_type = 'qlik_sense_cloud'
     hook_name = 'Qlik Sense Cloud'
     __qlik_connexion = None
 
 
-    def __init__(self,conn_id: str = default_conn_name,auth_type: str = 'api_key',) -> None:
+    def __init__(self,qlik_sense_cloud_config_id: str = default_conn_name,auth_type: str = 'api_key',) -> None:
         super().__init__()
-        self.conn_id = conn_id
+        self.qlik_sense_cloud_config_id = qlik_sense_cloud_config_id
         self.base_url: str = ""
         self.auth_type: str = auth_type
+
+    def test_connection(self) -> tuple[bool, str]:
+        """Test the access to tenant Qlik Sense Cloud."""
+        try:
+            self.get_conn()
+            user = self.__qlik_connexion.users.get_me()
+            return True, f"Connection successfully tested with user: {user.name}"
+        except Exception as e:
+            return False, str(e)
+
 
     def get_status_reload_app(self, reloadId: str):
         """
@@ -93,7 +103,7 @@ class QlikSenseHook(BaseHook):
         
         ans = automation.create_run({
                                 "id": self.__generate_uuid(),
-                                "inputs": self.input,
+                                "inputs": input,
                                 "context": "api"
                                 })
 
@@ -112,7 +122,7 @@ class QlikSenseHook(BaseHook):
         ans = self.__qlik_connexion.rest(path='/sharing-tasks/actions/execute', method='POST', data={"sharingTaskID": reportId})
         return ans
 
-    def __generate_uuid():
+    def __generate_uuid(self):
         return str(uuid.uuid4())
         
     def get_conn(self):
@@ -122,8 +132,8 @@ class QlikSenseHook(BaseHook):
     
         """
 
-        if self.conn_id:
-            conn = self.get_connection(self.conn_id)
+        if self.qlik_sense_cloud_config_id:
+            conn = self.get_connection(self.qlik_sense_cloud_config_id)
 
             host = conn.host if conn.host else ""
             if not host.startswith('https://'):

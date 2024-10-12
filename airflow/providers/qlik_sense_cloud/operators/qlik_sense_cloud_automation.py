@@ -10,7 +10,7 @@ class QlikSenseCloudAutomationOperator(BaseOperator):
     """
     Trigger a reload of an automation from automation id passed in params.
 
-    :conn_id: connection to run the operator with
+    :qlik_sense_cloud_config_id: connection to run the operator with
     :automationId: str
     
     """
@@ -23,16 +23,16 @@ class QlikSenseCloudAutomationOperator(BaseOperator):
     ui_color = '#00873d'
 
     @apply_defaults
-    def __init__(self, *, automationId: str = None, conn_id: str = 'qlik_conn_sample', inputs:Dict[str, Any] = {}, synchrone: bool = True ,**kwargs: Any,) -> None:
+    def __init__(self, *, automationId: str = None, qlik_sense_cloud_config_id: str = 'qlik_conn_sample', inputs:Dict[str, Any] = {}, synchrone: bool = True ,**kwargs: Any,) -> None:
         super().__init__(**kwargs)
-        self.conn_id = conn_id
+        self.qlik_sense_cloud_config_id = qlik_sense_cloud_config_id
         self.automationId = automationId
         self.inputs = inputs
         self.synchrone = synchrone
 
     def execute(self, context: Dict[str, Any]) -> Any:
 
-        hook = QlikSenseHook(conn_id=self.conn_id)
+        hook = QlikSenseHook(qlik_sense_cloud_config_id=self.qlik_sense_cloud_config_id)
         
         #Body of request to reload application
         
