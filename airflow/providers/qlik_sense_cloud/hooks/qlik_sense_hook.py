@@ -122,7 +122,7 @@ class QlikSenseHook(BaseHook):
         ans = self.__qlik_connexion.rest(path='/sharing-tasks/actions/execute', method='POST', data={"sharingTaskID": reportId})
         return ans
 
-    def __generate_uuid():
+    def __generate_uuid(self):
         return str(uuid.uuid4())
         
     def get_conn(self):
