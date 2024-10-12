@@ -103,7 +103,7 @@ class QlikSenseHook(BaseHook):
         
         ans = automation.create_run({
                                 "id": self.__generate_uuid(),
-                                "inputs": self.input,
+                                "inputs": input,
                                 "context": "api"
                                 })
 
