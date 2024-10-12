@@ -24,8 +24,8 @@ class QlikSenseHook(BaseHook):
     
     """
 
-    conn_name_attr = 'sample_conn_id'
-    default_conn_name = 'qlik_sense_default'
+    conn_name_attr = 'qlik_sense_cloud_config_id'
+    default_conn_name = 'qlik_sense_cloud_default'
     conn_type = 'qlik_sense_cloud'
     hook_name = 'Qlik Sense Cloud'
     __qlik_connexion = None
@@ -40,8 +40,8 @@ class QlikSenseHook(BaseHook):
     def test_connection(self) -> tuple[bool, str]:
         """Test the access to tenant Qlik Sense Cloud."""
         try:
-            conn = self.get_conn()
-            user = conn.users.get_me()
+            self.get_conn()
+            user = self.__qlik_connexion.users.get_me()
             return True, f"Connection successfully tested with user: {user.name}"
         except Exception as e:
             return False, str(e)
