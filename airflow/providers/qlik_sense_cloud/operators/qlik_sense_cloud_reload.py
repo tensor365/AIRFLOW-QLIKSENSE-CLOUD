@@ -10,7 +10,7 @@ class QlikSenseCloudReloadOperator(BaseOperator):
     """
     Trigger a reload of the app id passed in params.
 
-    :conn_id: connection to run the operator with
+    :qlik_sense_cloud_config_id: connection to run the operator with
     :appId: str
     
     """
@@ -23,15 +23,15 @@ class QlikSenseCloudReloadOperator(BaseOperator):
     ui_color = '#00873d'
 
     @apply_defaults
-    def __init__(self, *, appId: str = None, conn_id: str = 'qlik_conn_sample', synchrone: bool = True, **kwargs: Any,) -> None:
+    def __init__(self, *, appId: str = None, qlik_sense_cloud_config_id: str = 'qlik_conn_sample', synchrone: bool = True, **kwargs: Any,) -> None:
         super().__init__(**kwargs)
-        self.conn_id = conn_id
+        self.qlik_sense_cloud_config_id = qlik_sense_cloud_config_id
         self.appId = appId
         self.synchrone=synchrone
 
     def execute(self, context: Dict[str, Any]) -> Any:
 
-        hook = QlikSenseHook(conn_id=self.conn_id)
+        hook = QlikSenseHook(qlik_sense_cloud_config_id=self.qlik_sense_cloud_config_id)
 
         #Body of request to reload application
         self.data = {"appId":self.appId,"partial": False}
