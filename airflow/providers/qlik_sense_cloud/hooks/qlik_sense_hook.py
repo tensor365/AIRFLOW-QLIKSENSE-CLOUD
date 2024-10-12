@@ -15,10 +15,10 @@ class QlikSenseHook(BaseHook):
  
     :param method: the API method to be called
     :type method: str
-    :param sample_conn_id: connection that has the base API url i.e https://www.google.com/
+    :param qlik_sense_cloud_config_id: connection that has the base API url i.e https://www.google.com/
         and optional authentication credentials. Default headers can also be specified in
         the Extra field in json format.
-    :type sample_conn_id: str
+    :type qlik_sense_cloud_config_id: str
     :param auth_type: The auth type for the service
     :type auth_type: AuthBase of python requests lib
     
@@ -31,9 +31,9 @@ class QlikSenseHook(BaseHook):
     __qlik_connexion = None
 
 
-    def __init__(self,conn_id: str = default_conn_name,auth_type: str = 'api_key',) -> None:
+    def __init__(self,qlik_sense_cloud_config_id: str = default_conn_name,auth_type: str = 'api_key',) -> None:
         super().__init__()
-        self.conn_id = conn_id
+        self.qlik_sense_cloud_config_id = qlik_sense_cloud_config_id
         self.base_url: str = ""
         self.auth_type: str = auth_type
 
