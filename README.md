@@ -176,7 +176,7 @@ default_args = {
 
 # [START instantiate_dag]
 with DAG('test-airflow',default_args=default_args,description='A simple tutorial DAG to try',schedule_interval=timedelta(days=1),start_date=days_ago(2),tags=['example'],) as dag:
-        t1 = QlikSenseCloudReloadOperator(task_id='reload_app',appId='4d5ad6d0-92a1-47c3-b57d-5a07945377f8',conn_id='qliksensecloud')
+        t1 = QlikSenseCloudReloadOperator(task_id='reload_app',appId='4d5ad6d0-92a1-47c3-b57d-5a07945377f8',qlik_sense_cloud_config_id='qliksensecloud')
 
         t1
 # [END instantiate_dag]
@@ -229,9 +229,9 @@ default_args = {
 
 # [START instantiate_dag]
 with DAG('test-automation-report',default_args=default_args,description='A simple tutorial DAG to try',schedule_interval=timedelta(days=1),start_date=days_ago(2),tags=['example'],) as dag:
-	t1 = QlikSenseCloudAutomationOperator(task_id='reload_automation',automationId='bab86470-578a-11ed-bee3-db20e15c9fd8',conn_id='qliksensecloud')
+	t1 = QlikSenseCloudAutomationOperator(task_id='reload_automation',automationId='bab86470-578a-11ed-bee3-db20e15c9fd8',qlik_sense_cloud_config_id='qliksensecloud')
 
-  	t2 = QlikSenseCloudReportOperator(task_id='reload_report',reportId='65f810a9e0f4697cb54b6e87',conn_id='qliksensecloud')
+  	t2 = QlikSenseCloudReportOperator(task_id='reload_report',reportId='65f810a9e0f4697cb54b6e87',qlik_sense_cloud_config_id='qliksensecloud')
 
 	t1 >> t2
 
