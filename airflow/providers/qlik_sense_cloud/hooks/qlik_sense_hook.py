@@ -1,4 +1,4 @@
-from typing import Any, Callable, Dict, Optional, Union
+from typing import Any, Callable, Dict, Optional, Union, Tuple
 import uuid
 
 from qlik_sdk import (
@@ -37,7 +37,7 @@ class QlikSenseHook(BaseHook):
         self.base_url: str = ""
         self.auth_type: str = auth_type
 
-    def test_connection(self) -> tuple[bool, str]:
+    def test_connection(self) -> Tuple[bool, str]:
         """Test the access to tenant Qlik Sense Cloud."""
         try:
             self.get_conn()
