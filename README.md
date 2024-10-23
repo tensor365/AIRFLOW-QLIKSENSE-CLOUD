@@ -18,6 +18,12 @@ This repository provides basic qlik sense cloud hook and operators to trigger re
 
 ## Road Map 
 
+In development:
+
+☑ Adding Qlik Talend Cloud Operator (Waiting new tenant to add it)
+
+Test-Phase:
+
 ☑ Adding Report Operator (Added in production)
 
 
