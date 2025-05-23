@@ -7,8 +7,8 @@ from qlik_sdk import (
     Qlik,
 )
 
-from airflow.exceptions import AirflowException
 from airflow.hooks.base import BaseHook
+
 
 class QlikSenseHook(BaseHook):
     """

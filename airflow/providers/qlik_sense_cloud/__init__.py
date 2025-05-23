@@ -1,22 +1,28 @@
-## This is needed to allow Airflow to pick up specific metadata fields it needs for certain features. We recognize it's a bit unclean to define these in multiple places, but at this point it's the only workaround if you'd like your custom conn type to show up in the Airflow UI.
 def get_provider_info():
     return {
-        "package-name": "airflow-provider-qlik-sense-cloud", # Required
-        "name": "Qlik Sense Cloud Airflow Provider", # Required
+        "package-name": "airflow-provider-qlik-sense-cloud",
+        "name": "Qlik Sense Cloud Airflow Provider",
         "description": 'Airflow package provider to reload apps/task/automation from Qlik Sense Cloud.', # Required
         "hook": [
             {
                 "integration-name": "Qlik Cloud",
-                "python-modules":"airflow.providers.qlik_sense_cloud.hooks.qlik_sense_hook.QlikSenseHook"
+                "python-modules":["airflow.providers.qlik_sense_cloud.hooks.qlik_sense_hook.QlikSenseHook"]
 
             }
             ],
         "operators":[
                 {
-                "integration-name": "Qlik Cloud",
-                "python-modules":"airflow.providers.qlik_sense_cloud.operators.qlik_sense_cloud_reload.QlikSenseCloudReloadOperator"
-
-            }
+                "integration-name": "Qlik Cloud Reload",
+                "python-modules":["airflow.providers.qlik_sense_cloud.operators.qlik_sense_cloud_reload"]
+            },
+            {
+                "integration-name": "Qlik Cloud Automation",
+                "python-modules":["airflow.providers.qlik_sense_cloud.operators.qlik_sense_cloud_automation"]
+            },
+            {
+                "integration-name": "Qlik Cloud Report",
+                "python-modules":["airflow.providers.qlik_sense_cloud.operators.qlik_sense_cloud_report"]
+            },
         ],
         'connection-types': [
             {
@@ -24,6 +30,5 @@ def get_provider_info():
                 'connection-type': 'qlik_sense_cloud',
             }
         ],
-        #"extra-links": ["qlik_sense_cloud.operators.sample_operator.ExtraLink"],
-        "versions": ["0.0.1"] # Required
+        "versions": ["0.0.2"]
     }
