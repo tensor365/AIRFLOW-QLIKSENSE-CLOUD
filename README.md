@@ -210,7 +210,7 @@ Here's an example of DAG using operator to reload automation
 from airflow import DAG
 from airflow.providers.qlik_sense_cloud.operators.qlik_sense_cloud_automation import QlikSenseCloudAutomationOperator
 from airflow.providers.qlik_sense_cloud.operators.qlik_sense_cloud_report import QlikSenseCloudReportOperator
-from airflow.utils.dates import days_ago
+
 import pendulum
 from datetime import timedelta
 from textwrap import dedent
