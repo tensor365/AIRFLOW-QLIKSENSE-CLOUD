@@ -25,15 +25,21 @@ In development:
 Test-Phase:
 
 ☑ Adding Report Operator (Added in production)
+☑ Comptability with Airflow 3.0.1 (Added in production)
 
+
+## Warnings
+
+For version superior to Airflow 3.0.0, please use version superior to 0.0.7
+For version below to Airflow 3.0.0, please use version under 0.0.7
 
 ## Requirements
 
-The package has been tested with Python 3.7, Python 3.8.
+The package has been tested with Python 3.9.
 
 |  Package       |  Version  |
 |----------------|-----------|
-| apache-airflow | >2.0      |
+| apache-airflow | >2.10      |
 | qlik-sdk       | >= 0.14.0 |
 
 You also need a Qlik Sense Cloud tenant with API key activated. To get more informations about how to activate API key on Qlik Sense Cloud Tenant, see this section.
