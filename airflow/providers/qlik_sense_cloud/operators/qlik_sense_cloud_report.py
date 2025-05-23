@@ -3,7 +3,6 @@ import time
 
 from airflow.exceptions import AirflowException
 from airflow.models import BaseOperator
-from airflow.utils.decorators import apply_defaults
 from airflow.providers.qlik_sense_cloud.hooks.qlik_sense_hook import QlikSenseHook
 
 class QlikSenseCloudReportOperator(BaseOperator):
@@ -22,7 +21,6 @@ class QlikSenseCloudReportOperator(BaseOperator):
     template_ext = ()
     ui_color = '#00873d'
 
-    @apply_defaults
     def __init__(self, *, reportId: str = None, qlik_sense_cloud_config_id: str = 'qlik_conn_sample', **kwargs: Any,) -> None:
         super().__init__(**kwargs)
         self.qlik_sense_cloud_config_id = qlik_sense_cloud_config_id

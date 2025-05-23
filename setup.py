@@ -8,7 +8,7 @@ with open("README.md", "r", encoding="utf8") as fh:
 """Perform the package airflow-provider-qlik-sense-cloud setup."""
 setup(
     name='airflow-provider-qlik-sense-cloud',
-    version="0.0.7",
+    version="0.0.8",
     description='Airflow package provider to reload apps/task/automation from Qlik Sense Cloud.',
     long_description=long_description,
     long_description_content_type='text/markdown',
@@ -19,7 +19,7 @@ setup(
     },
     license='Apache License 2.0',
     packages=['airflow.providers.qlik_sense_cloud', 'airflow.providers.qlik_sense_cloud.hooks', 'airflow.providers.qlik_sense_cloud.operators'],
-    install_requires=['apache-airflow>=2.0', 'qlik-sdk'],
+    install_requires=['apache-airflow>=2.10', 'qlik-sdk'],
     setup_requires=['setuptools', 'wheel'],
     author='Clement Parsy',
     author_email='cparsy@decideom.fr',
