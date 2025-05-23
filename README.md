@@ -152,7 +152,6 @@ Example:
 ```python
 from airflow import DAG
 from airflow.providers.qlik_sense_cloud.operators.qlik_sense_cloud_reload import QlikSenseCloudReloadOperator
-from airflow.utils.dates import days_ago
 
 from datetime import timedelta
 from textwrap import dedent
@@ -169,6 +168,8 @@ default_args = {
     'email_on_retry': False,
     'retries': 1,
     'retry_delay': timedelta(minutes=5),
+    'schedule_interval':'@daily',
+
     # 'queue': 'bash_queue',
     # 'pool': 'backfill',
     # 'priority_weight': 10,
@@ -187,7 +188,11 @@ default_args = {
 
 
 # [START instantiate_dag]
-with DAG('test-airflow',default_args=default_args,description='A simple tutorial DAG to try',schedule_interval=timedelta(days=1),start_date=days_ago(2),tags=['example'],) as dag:
+with DAG('test-airflow',
+        default_args=default_args,
+        description='A simple tutorial DAG to try',
+        start_date=start_date=pendulum.datetime(2021, 1, 1, 10, 40, 0, tz="Europe/Paris"),tags=['qlik','example']) as dag:
+
         t1 = QlikSenseCloudReloadOperator(task_id='reload_app',appId='4d5ad6d0-92a1-47c3-b57d-5a07945377f8',qlik_sense_cloud_config_id='qliksensecloud')
 
         t1
@@ -199,7 +204,6 @@ with DAG('test-airflow',default_args=default_args,description='A simple tutorial
 ### 5. Example: Creating a DAG with Qlik Sense Cloud Operator to reload Qlik Automation and to send a Qlik Report
 
 Here's an example of DAG using operator to reload automation 
-
 
 ```python
 
@@ -240,7 +244,11 @@ default_args = {
 
 
 # [START instantiate_dag]
-with DAG('test-automation-report',default_args=default_args,description='A simple tutorial DAG to try',schedule_interval=timedelta(days=1),start_date=days_ago(2),tags=['example'],) as dag:
+with DAG('test-automation-report',
+        default_args=default_args,
+        description='A simple tutorial DAG to try',
+        start_date=start_date=pendulum.datetime(2021, 1, 1, 10, 40, 0, tz="Europe/Paris"),tags=['qlik','example']) as dag:
+          
 	t1 = QlikSenseCloudAutomationOperator(task_id='reload_automation',automationId='bab86470-578a-11ed-bee3-db20e15c9fd8',qlik_sense_cloud_config_id='qliksensecloud')
 
   	t2 = QlikSenseCloudReportOperator(task_id='reload_report',reportId='65f810a9e0f4697cb54b6e87',qlik_sense_cloud_config_id='qliksensecloud')
