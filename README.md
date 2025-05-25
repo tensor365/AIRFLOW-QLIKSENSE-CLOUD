@@ -76,6 +76,18 @@ To create connection, you need to get a API Token and your Qlik Cloud Tenant Act
 <br/>
 
 ### 1. Generating API Keys
+
+
+
+You can follow this video to generate an API Key or you'll find a step by step tutorial just below the video:
+
+
+#### a. Youtube tutorial
+
+[![Qlik Fix: How to Generate API Keys with APIs in Qlik Sense Enterprise SaaS](https://img.youtube.com/vi/G21EjnZJcj8/maxresdefault.jpg)](https://www.youtube.com/watch?v=G21EjnZJcj8)
+
+
+#### Step by step tutorial
 <br/>
 Follow these steps to get API Keys:
 <br/>
