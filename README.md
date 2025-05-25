@@ -87,7 +87,7 @@ You can follow this video to generate an API Key or you'll find a step by step t
 [![Qlik Fix: How to Generate API Keys with APIs in Qlik Sense Enterprise SaaS](https://img.youtube.com/vi/G21EjnZJcj8/maxresdefault.jpg)](https://www.youtube.com/watch?v=G21EjnZJcj8)
 
 
-#### Step by step tutorial
+#### b. Step by step tutorial
 <br/>
 Follow these steps to get API Keys:
 <br/>
